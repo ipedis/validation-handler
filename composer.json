@@ -1,0 +1,24 @@
+{
+    "name": "ipedis/validation-handler",
+    "description": "File validation handler",
+    "type": "library",
+    "require": {
+        "php": ">=8.1",
+        "symfony/validator": "^6.0",
+        "symfony/http-foundation": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ipedis\\ValidationHandler\\": "src/",
+            "Ipedis\\ValidationHandler\\Test\\": "test/",
+            "Ipedis\\ValidationHandler\\Demo\\": "demo/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tejas",
+            "email": "tejas@ipedis.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
