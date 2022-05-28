@@ -9,14 +9,22 @@ use Ipedis\ValidationHandler\Validator\FileSizeValidator;
 use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-$file = __DIR__."/../test/data/14mb.pdf";
-$f = new SplFileInfo($file);
-$data = new DataWrapper(new UploadedFile($f->getRealPath(), '14mb', 'application/pdf'));
+$file = __DIR__."/../test/data/test.txt";
+/*
+ * interesting find, UploadedFile object will not work like this. https://stackoverflow.com/a/67796852
+ * But it provides a parameter "test" when set to false it will bypass the is_uploaded_file check.
+ */
+$data = new DataWrapper(new UploadedFile(
+    path: $file,
+    originalName: '14mb',
+    test: true
+));
 
-$validation = new FileSizeValidator($data, new FileSize('200', 'M'));
+$validation = new FileSizeValidator($data, new FileSize('2', 'M'));
 
-$validation->setNext(new MimeTypeValidator($data, new MimeTypes(['text/plain'])));
+$validation->setNext(new MimeTypeValidator($data, new MimeTypes(['application/pdf'])));
 
 $result = $validation->handle();
 
-var_dump($result);
+// should fail.
+var_dump($result->isFailed());
