@@ -11,7 +11,7 @@ class FileSize implements \Stringable
      * @param int $value
      * @param string|null $unit
      */
-    public function __construct(public readonly int $value, public readonly ?string $unit)
+    public function __construct(public readonly int $value, public readonly ?string $unit = null)
     {
         $this->assertValue();
     }

@@ -5,6 +5,7 @@ namespace Ipedis\ValidationHandler\Validator;
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
 use Ipedis\ValidationHandler\Data\Properties\MimeTypes;
 use Ipedis\ValidationHandler\Handler\HandlerAbstract;
+use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInterface;
@@ -23,18 +24,26 @@ class MimeTypeValidator extends HandlerAbstract
     protected function buildConstraints(): Constraint
     {
         return new Assert\File([
-            'mimeTypes' => $this->mimeTypes
+            'mimeTypes' => $this->mimeTypes->mimeTypes
         ]);
     }
 
-    public function handle()
+    public function handle(): ValidationResult
     {
-        $errors = $this->validator->validate($this->data->getData(), $this->buildConstraints());
+        $validationResult = $this->validate();
 
-        if ($errors->count() === 0) {
+        if (!$validationResult->isFailed()) {
             return parent::handle();
         }
 
-        return $errors;
+        return $validationResult;
+    }
+
+    protected function validate(): ValidationResult
+    {
+        return new ValidationResult($this->validator->validate(
+            $this->data->getData(),
+            $this->buildConstraints())
+        );
     }
 }

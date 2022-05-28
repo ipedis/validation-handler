@@ -3,6 +3,7 @@
 namespace Ipedis\ValidationHandler\Handler;
 
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
+use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
 use Symfony\Component\Validator\Constraint;
 
 abstract class HandlerAbstract implements HandlerInterface
@@ -15,6 +16,7 @@ abstract class HandlerAbstract implements HandlerInterface
     }
 
     abstract protected function buildConstraints(): Constraint;
+    abstract protected function validate(): ValidationResult;
 
     public function setNext(HandlerInterface $handler): HandlerInterface
     {
@@ -25,7 +27,7 @@ abstract class HandlerAbstract implements HandlerInterface
         return $handler;
     }
 
-    public function handle()
+    public function handle(): ValidationResult
     {
         return $this->nextHandler?->handle();
     }
