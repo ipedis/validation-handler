@@ -10,7 +10,7 @@ abstract class HandlerAbstract implements HandlerInterface
     private ?HandlerInterface $nextHandler = null;
     protected array $handlers = [];
 
-    public function __construct(protected readonly DataWrapperInterface $data)
+    public function __construct(protected DataWrapperInterface $data)
     {
     }
 

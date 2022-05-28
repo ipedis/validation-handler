@@ -14,7 +14,7 @@ class FileSizeValidator extends HandlerAbstract
 {
     private BaseValidatorInterface $validator;
 
-    public function __construct(protected readonly DataWrapperInterface $data, private readonly FileSize $fileSize)
+    public function __construct(protected DataWrapperInterface $data, private readonly FileSize $fileSize)
     {
         $this->validator = Validation::createValidator();
         parent::__construct($data);
@@ -28,7 +28,7 @@ class FileSizeValidator extends HandlerAbstract
             return parent::handle();
         }
 
-        return $errors;
+        return 'File size validator failed.'. $errors->get(0)->getMessageTemplate();
     }
 
     protected function buildConstraints(): Constraint

@@ -4,13 +4,13 @@ namespace Ipedis\ValidationHandler\Data;
 
 class DataWrapper extends DataWrapperAbstract
 {
-    public function __construct(mixed $data)
+    public function __construct($data)
     {
         $this->data = $data;
         parent::__construct($data);
     }
 
-    public function getData(): mixed
+    public function getData()
     {
         return $this->data;
     }

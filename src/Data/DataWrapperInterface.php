@@ -10,7 +10,7 @@ interface DataWrapperInterface
         UploadedFile::class // may be we will change this to SplFileInfo
     ];
 
-    public function getData(): mixed;
+    public function getData();
 
     public function getType(): string;
 
