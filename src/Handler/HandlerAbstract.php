@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraint;
 abstract class HandlerAbstract implements HandlerInterface
 {
     private ?HandlerInterface $nextHandler = null;
-    protected array $handlers = [];
 
     public function __construct(protected DataWrapperInterface $data)
     {
@@ -21,14 +20,17 @@ abstract class HandlerAbstract implements HandlerInterface
     public function setNext(HandlerInterface $handler): HandlerInterface
     {
         $this->nextHandler = $handler;
-        $this->handlers[] = $handler;
-
 
         return $handler;
     }
 
     public function handle(): ValidationResult
     {
-        return $this->nextHandler?->handle();
+        if ($this->nextHandler) {
+            return $this->nextHandler->handle();
+        }
+
+        // if it comes here, it means all validators have passed.
+        return new ValidationResult();
     }
 }

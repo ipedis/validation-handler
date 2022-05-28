@@ -7,13 +7,13 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ValidationResult
 {
-    public function __construct(private readonly ConstraintViolationListInterface $violations)
+    public function __construct(private readonly ?ConstraintViolationListInterface $violations = null)
     {
     }
 
     public function isFailed(): bool
     {
-        return $this->violations->count() > 0;
+        return $this->violations && $this->violations->count() > 0;
     }
 
     public function getErrorMessage(): ?string

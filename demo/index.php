@@ -22,7 +22,7 @@ $data = new DataWrapper(new UploadedFile(
 
 $validation = new FileSizeValidator($data, new FileSize('2', 'M'));
 
-$validation->setNext(new MimeTypeValidator($data, new MimeTypes(['application/pdf'])));
+$validation->setNext(new MimeTypeValidator($data, new MimeTypes(['text/plain'])));
 
 $result = $validation->handle();
 
