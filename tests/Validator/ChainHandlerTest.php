@@ -3,60 +3,46 @@
 use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Data\Properties\FileSize;
 use Ipedis\ValidationHandler\Data\Properties\MimeTypes;
-use Ipedis\ValidationHandler\Validator\FileSizeValidator;
-use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Ipedis\ValidationHandler\ValidatorFactory;
 
 it ('should pass all validations for valid data', function() {
     $filePath = getDataDirectory().'265kb.pdf';
-    $data = new DataWrapper(new UploadedFile(path: $filePath, originalName: '265kb.pdf', test: true));
-    $validator = new FileSizeValidator(
-        $data,
-        new FileSize('1', 'M')
-    );
+    $data = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator->setNext(new MimeTypeValidator(
-        $data,
+    $validator = ValidatorFactory::build([
+        new FileSize('1', 'M'),
         new MimeTypes(['application/pdf'])
-    ));
+    ]);
 
-    $result = $validator->handle();
+    $result = $validator->handle($data);
 
     $this->assertFalse($result->isFailed());
 });
 
 it ('should fail validation if any validator fails', function() {
     $filePath = getDataDirectory().'265kb.pdf';
-    $data = new DataWrapper(new UploadedFile(path: $filePath, originalName: '265kb.pdf', test: true));
-    $validator = new FileSizeValidator(
-        $data,
-        new FileSize('100', 'k')
-    );
+    $data = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator->setNext(new MimeTypeValidator(
-        $data,
+    $validator = ValidatorFactory::build([
+        new FileSize('100', 'k'),
         new MimeTypes(['application/pdf'])
-    ));
+    ]);
 
-    $result = $validator->handle();
+    $result = $validator->handle($data);
 
     $this->assertTrue($result->isFailed());
 });
 
 it ('should fail validation if any validator fails part 2', function() {
     $filePath = getDataDirectory().'malicious_php.pdf';
-    $data = new DataWrapper(new UploadedFile(path: $filePath, originalName: 'malicious_php.pdf', test: true));
-    $validator = new FileSizeValidator(
-        $data,
-        new FileSize('1', 'M')
-    );
+    $data = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator->setNext(new MimeTypeValidator(
-        $data,
+    $validator = ValidatorFactory::build([
+        new FileSize('1', 'M'),
         new MimeTypes(['application/pdf'])
-    ));
+    ]);
 
-    $result = $validator->handle();
+    $result = $validator->handle($data);
 
     $this->assertTrue($result->isFailed());
 });
