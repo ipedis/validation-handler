@@ -2,6 +2,10 @@
 
 namespace Ipedis\ValidationHandler\Data\Properties;
 
+use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
+use Ipedis\ValidationHandler\Validator\BindValidator;
+
+#[BindValidator(validatorClass: MimeTypeValidator::class)]
 class MimeTypes
 {
     public function __construct(public readonly array $mimeTypes)

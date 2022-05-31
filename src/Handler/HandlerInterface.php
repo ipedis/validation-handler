@@ -2,6 +2,8 @@
 
 namespace Ipedis\ValidationHandler\Handler;
 
+use Ipedis\ValidationHandler\Data\DataWrapperInterface;
+
 interface HandlerInterface
 {
     /**
@@ -10,5 +12,5 @@ interface HandlerInterface
      */
     public function setNext(HandlerInterface $handler): HandlerInterface;
 
-    public function handle();
+    public function handle(DataWrapperInterface $data);
 }

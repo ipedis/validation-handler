@@ -15,27 +15,27 @@ class FileSizeValidator extends HandlerAbstract
 {
     private BaseValidatorInterface $validator;
 
-    public function __construct(protected DataWrapperInterface $data, private readonly FileSize $fileSize)
+    public function __construct(private readonly FileSize $fileSize)
     {
         $this->validator = Validation::createValidator();
-        parent::__construct($data);
+        parent::__construct();
     }
 
-    public function handle(): ValidationResult
+    public function handle(DataWrapperInterface $data): ValidationResult
     {
-        $validationResult = $this->validate();
+        $validationResult = $this->validate($data);
 
         if (!$validationResult->isFailed()) {
-            return parent::handle();
+            return parent::handle($data);
         }
 
         return $validationResult;
     }
 
-    protected function validate(): ValidationResult
+    protected function validate(DataWrapperInterface $data): ValidationResult
     {
         return new ValidationResult($this->validator->validate(
-            $this->data->getData(),
+            $data->getData(),
             $this->buildConstraints())
         );
     }
