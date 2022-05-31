@@ -39,5 +39,5 @@ your own required validations.
 
 #### Limitations and TODO
 
-- For now validation is only for [uploaded files](\Ipedis\ValidationHandler\Data\DataWrapperInterface::SUPPORTED_TYPES), 
+- For now validation is only for [uploaded files](src/Data/DataWrapperInterface.php), 
 we can expand it to use other types.
