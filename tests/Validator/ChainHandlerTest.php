@@ -1,8 +1,8 @@
 <?php
 
 use Ipedis\ValidationHandler\Data\DataWrapper;
-use Ipedis\ValidationHandler\Data\Properties\FileSize;
-use Ipedis\ValidationHandler\Data\Properties\MimeTypes;
+use Ipedis\ValidationHandler\Data\Constraints\FileSize;
+use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\ValidatorFactory;
 
 it ('should pass all validations for valid data', function() {

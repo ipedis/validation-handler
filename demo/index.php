@@ -3,8 +3,8 @@
 require_once './vendor/autoload.php';
 
 use Ipedis\ValidationHandler\Data\DataWrapper;
-use Ipedis\ValidationHandler\Data\Properties\FileSize;
-use Ipedis\ValidationHandler\Data\Properties\MimeTypes;
+use Ipedis\ValidationHandler\Data\Constraints\FileSize;
+use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
 use Ipedis\ValidationHandler\ValidatorFactory;
 

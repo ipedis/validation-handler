@@ -6,34 +6,35 @@ This library is useful for file validation built on top of `symfony/validator` c
 
 Prepare your data inside [DataWrapper](src/Data/DataWrapper.php) and create validation chain with validators.
 
+```php
+use Ipedis\ValidationHandler\Data\DataWrapper;
+use Ipedis\ValidationHandler\Data\Constraints\FileSize;
+use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
+use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
+use Ipedis\ValidationHandler\ValidatorFactory;
 
-```phpt
-$file = __DIR__."/../test/data/test.txt";
-/*
- * interesting find, UploadedFile object will not work like this. https://stackoverflow.com/a/67796852
- * But it provides a parameter "test" when set to false it will bypass the is_uploaded_file check.
+$file = __DIR__."/../tests/data/265kb.pdf";
+$data = new DataWrapper(new SplFileInfo($file));
+
+/**
+ * build validator with list of constraints.
  */
-$data = new DataWrapper(new UploadedFile(
-    path: $file,
-    originalName: '14mb',
-    test: true
-));
-
-// initial validator
-$validation = new FileSizeValidator($data, new FileSize('2', 'M'));
-
-// you can chain all validators by calling setNext() method
-$validation->setNext(new MimeTypeValidator($data, new MimeTypes(['text/plain'])));
-
+$validator = ValidatorFactory::build(validations: [
+    new FileSize('100', 'k'),
+    new MimeTypes(['application/pdf'])
+]);
+// run validations
 $result = $validation->handle();
+
+var_dump($result->isFailed(), $result->getErrorMessage());
 ```
 
 Result will be instance of [ValidationResult](src/Validator/Modal/ValidationResult.php), `isFailed()` is helper to know 
-if validtion failed or not. `getError()` will give you instance of symfony's [ConstraintViolationInterface](https://github.com/symfony/validator/blob/6.1/ConstraintViolationInterface.php).
+if validation failed or not. `getError()` will give you instance of symfony's [ConstraintViolationInterface](https://github.com/symfony/validator/blob/6.1/ConstraintViolationInterface.php).
 
 #### Adding more validator
 
-Each validator class extends [HanlderAbstract](src/Handler/HandlerAbstract.php). You can create new class and perform 
+Each validator class extends [HandlerAbstract](src/Handler/HandlerAbstract.php). You can create new class and perform 
 your own required validations.
 
 

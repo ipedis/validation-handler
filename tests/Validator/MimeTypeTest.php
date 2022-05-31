@@ -2,7 +2,7 @@
 
 use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
-use Ipedis\ValidationHandler\Data\Properties\MimeTypes;
+use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 
 
 it ('should fail validation for invalid mimetype', function() {

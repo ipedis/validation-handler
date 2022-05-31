@@ -1,6 +1,6 @@
 <?php
 
-namespace Ipedis\ValidationHandler\Data\Properties;
+namespace Ipedis\ValidationHandler\Data\Constraints;
 
 use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
 use Ipedis\ValidationHandler\Validator\BindValidator;
