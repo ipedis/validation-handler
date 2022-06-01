@@ -6,7 +6,7 @@ use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
 use Ipedis\ValidationHandler\Validator\BindValidator;
 
 #[BindValidator(validatorClass: MimeTypeValidator::class)]
-class MimeTypes
+class MimeTypes implements ConstraintInterface
 {
     public function __construct(public readonly array $mimeTypes)
     {

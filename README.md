@@ -2,6 +2,19 @@
 
 This library is useful for file validation built on top of `symfony/validator` component. 
 
+## Get Started
+
+First you have to install dependency of this library. 
+
+```bash
+make install
+```
+
+```test
+make test
+```
+
+
 ### How to use?
 
 Prepare your data inside [DataWrapper](src/Data/DataWrapper.php) and create validation chain with validators.
@@ -11,7 +24,7 @@ use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Data\Constraints\FileSize;
 use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
-use Ipedis\ValidationHandler\ValidatorFactory;
+use Ipedis\ValidationHandler\ConstraintFactory;
 
 $file = __DIR__."/../tests/data/265kb.pdf";
 $data = new DataWrapper(new SplFileInfo($file));
@@ -19,7 +32,7 @@ $data = new DataWrapper(new SplFileInfo($file));
 /**
  * build validator with list of constraints.
  */
-$validator = ValidatorFactory::build(validations: [
+$validator = ConstraintFactory::build(constraints: [
     new FileSize('100', 'k'),
     new MimeTypes(['application/pdf'])
 ]);

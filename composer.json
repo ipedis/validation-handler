@@ -22,7 +22,8 @@
     ],
     "minimum-stability": "stable",
     "require-dev": {
-        "pestphp/pest": "^1.21"
+        "pestphp/pest": "^1.21",
+        "symfony/var-dumper": "^6.1"
     },
     "config": {
         "allow-plugins": {
