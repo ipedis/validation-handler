@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class FileSizeValidator extends HandlerAbstract
+final class FileSizeValidator extends HandlerAbstract
 {
     private BaseValidatorInterface $validator;
 
