@@ -4,9 +4,10 @@ namespace Ipedis\ValidationHandler\Data\Constraints;
 
 use Ipedis\ValidationHandler\Validator\FileSizeValidator;
 use Ipedis\ValidationHandler\Validator\BindValidator;
+use Stringable;
 
 #[BindValidator(validatorClass: FileSizeValidator::class)]
-class FileSize implements \Stringable
+class FileSize implements Stringable, ConstraintInterface
 {
     const ALLOWED_UNITS = ['k', 'M', 'Ki', 'Mi'];
 

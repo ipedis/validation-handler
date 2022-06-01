@@ -6,12 +6,12 @@ use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Data\Constraints\FileSize;
 use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
-use Ipedis\ValidationHandler\ValidatorFactory;
+use Ipedis\ValidationHandler\ConstraintFactory;
 
 $file = __DIR__."/../tests/data/265kb.pdf";
 $data = new DataWrapper(new SplFileInfo($file));
 
-$validator = ValidatorFactory::build(validations: [
+$validator = ConstraintFactory::build(constraints: [
     new FileSize('100', 'k'),
     new MimeTypes(['application/pdf'])
 ]);
@@ -21,7 +21,7 @@ $result = $validator->handle($data);
 // should fail.
 var_dump($result->isFailed(), $result->getErrorMessage());
 
-$validator = ValidatorFactory::build(validations: [
+$validator = ConstraintFactory::build(constraints: [
     new FileSize('1', 'M'),
     new MimeTypes(['application/pdf'])
 ]);
