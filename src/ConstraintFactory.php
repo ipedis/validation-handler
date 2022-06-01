@@ -4,9 +4,9 @@ namespace Ipedis\ValidationHandler;
 
 use InvalidArgumentException;
 use Ipedis\ValidationHandler\Data\Constraints\ConstraintInterface;
-use Ipedis\ValidationHandler\Handler\HandlerAbstract;
 use Ipedis\ValidationHandler\Handler\HandlerInterface;
 use Ipedis\ValidationHandler\Validator\BindValidator;
+use LogicException;
 use ReflectionClass;
 use ReflectionException;
 
@@ -23,8 +23,10 @@ class ConstraintFactory
     }
 
     /**
+     * @param ConstraintInterface[] $constraints
      * @throws ReflectionException
      * @throws InvalidArgumentException
+     * @throws LogicException
      */
     private function bindConstraints(array $constraints): HandlerInterface
     {
@@ -36,10 +38,14 @@ class ConstraintFactory
             $reflection = new ReflectionClass($constraint);
             $attributes = $reflection->getAttributes(BindValidator::class);
 
+            if (empty($attributes)) {
+                throw new LogicException('Constraint must have BindValidator attribute');
+            }
+
             foreach ($attributes as $attribute) {
                 $validatorClass = $attribute->newInstance()->validatorClass;
                 if ($validatorHandler === null) {
-                    /** @var HandlerAbstract $validator */
+                    /** @var HandlerInterface $validator */
                     $validatorHandler = new $validatorClass($constraint);
                     continue;
                 }

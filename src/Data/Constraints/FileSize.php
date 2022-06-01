@@ -2,6 +2,7 @@
 
 namespace Ipedis\ValidationHandler\Data\Constraints;
 
+use InvalidArgumentException;
 use Ipedis\ValidationHandler\Validator\FileSizeValidator;
 use Ipedis\ValidationHandler\Validator\BindValidator;
 use Stringable;
@@ -28,11 +29,11 @@ class FileSize implements Stringable, ConstraintInterface
     private function assertValue(): void
     {
         if ($this->value < 1) {
-            throw new \InvalidArgumentException('Value size must be positive integer.');
+            throw new InvalidArgumentException('Value size must be positive integer.');
         }
 
         if (null !== $this->unit && !in_array($this->unit, self::ALLOWED_UNITS)) {
-            throw new \InvalidArgumentException(sprintf("Invalid unit provided. It must be one from [%s]", implode(' ', self::ALLOWED_UNITS)));
+            throw new InvalidArgumentException(sprintf("Invalid unit provided. It must be one from [%s]", implode(' ', self::ALLOWED_UNITS)));
         }
     }
 
