@@ -5,7 +5,7 @@ namespace Ipedis\ValidationHandler\Validator;
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
 use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Handler\HandlerAbstract;
-use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
+use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInterface;

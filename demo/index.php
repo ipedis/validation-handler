@@ -5,7 +5,7 @@ require_once './vendor/autoload.php';
 use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Data\Constraints\FileSize;
 use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
-use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
+use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
 use Ipedis\ValidationHandler\ValidatorFactory;
 
 $file = __DIR__."/../tests/data/265kb.pdf";

@@ -3,7 +3,7 @@
 namespace Ipedis\ValidationHandler\Handler;
 
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
-use Ipedis\ValidationHandler\Validator\Modal\ValidationResult;
+use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
 use Symfony\Component\Validator\Constraint;
 
 abstract class HandlerAbstract implements HandlerInterface

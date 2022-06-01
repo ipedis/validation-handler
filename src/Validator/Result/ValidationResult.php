@@ -1,6 +1,6 @@
 <?php
 
-namespace Ipedis\ValidationHandler\Validator\Modal;
+namespace Ipedis\ValidationHandler\Validator\Result;
 
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
