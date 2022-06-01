@@ -2,6 +2,19 @@
 
 This library is useful for file validation built on top of `symfony/validator` component. 
 
+## Get Started
+
+First you have to install dependency of this library. 
+
+```bash
+make install
+```
+
+```test
+make test
+```
+
+
 ### How to use?
 
 Prepare your data inside [DataWrapper](src/Data/DataWrapper.php) and create validation chain with validators.
