@@ -40,6 +40,26 @@ $validator = ConstraintFactory::build(constraints: [
 $result = $validation->handle();
 
 var_dump($result->isFailed(), $result->getErrorMessage());
+
+/*
+ * don't want to search for mimetype string? you can use built-in mimetypes helper 
+ */
+// example of mimetypes helper
+$validator = ConstraintFactory::build(constraints: [
+    new FileSize('1', 'M'),
+    MimeTypes::with(PdfMimeType::class)
+]);
+/** @var ValidationResult $result */
+$result = $validator->handle($data);
+
+// should pass.
+var_dump($result->isFailed(), $result->getErrorMessage());
+
+/**
+* If you do not concern about filesize but only want to check if file is image or pdf
+ */
+var_dump(ValidationHelper::isImage($data));
+var_dump(ValidationHelper::isPdf($data));
 ```
 
 Result will be instance of [ValidationResult](src/Validator/Modal/ValidationResult.php), `isFailed()` is helper to know 
