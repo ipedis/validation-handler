@@ -4,13 +4,13 @@ namespace Ipedis\ValidationHandler\Data\Constraints\Mimes;
 
 final class ImageMimeType implements BuiltInMimeTypesInterface
 {
-    const APNG = 'image/apng';
-    const AVIF = 'image/avif';
-    const GIF = 'image/gif';
-    const JPEG = 'image/jpeg';
-    const PNG = 'image/png';
-    const SVG = 'image/svg+xml';
-    const WEBP = 'image/webp';
+    private const APNG = 'image/apng';
+    private const AVIF = 'image/avif';
+    private const GIF = 'image/gif';
+    private const JPEG = 'image/jpeg';
+    private const PNG = 'image/png';
+    private const SVG = 'image/svg+xml';
+    private const WEBP = 'image/webp';
 
     public function getSupportedMimeTypes(): array
     {
