@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Data\Constraints\Mimes;
 
 final class PdfMimeType implements BuiltInMimeTypesInterface
@@ -9,7 +11,7 @@ final class PdfMimeType implements BuiltInMimeTypesInterface
     public function getSupportedMimeTypes(): array
     {
         return [
-            self::PDF
+            self::PDF,
         ];
     }
 }

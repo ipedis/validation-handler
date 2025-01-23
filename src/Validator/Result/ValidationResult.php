@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Validator\Result;
 
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class ValidationResult
+readonly class ValidationResult
 {
-    public function __construct(private readonly ?ConstraintViolationListInterface $violations = null)
+    public function __construct(private ?ConstraintViolationListInterface $violations = null)
     {
     }
 
@@ -33,5 +35,4 @@ class ValidationResult
 
         return null;
     }
-
 }

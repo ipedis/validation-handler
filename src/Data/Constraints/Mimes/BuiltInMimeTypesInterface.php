@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Data\Constraints\Mimes;
 
 interface BuiltInMimeTypesInterface
 {
-    const TYPE_IMAGE = 'image';
-    const TYPE_PDF = 'pdf';
+    public const TYPE_IMAGE = 'image';
+    public const TYPE_PDF = 'pdf';
 
     public function getSupportedMimeTypes(): array;
 }

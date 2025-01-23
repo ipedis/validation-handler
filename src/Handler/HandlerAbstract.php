@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Handler;
 
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
@@ -9,6 +11,7 @@ use Symfony\Component\Validator\Constraint;
 abstract class HandlerAbstract implements HandlerInterface
 {
     protected static ?HandlerStack $handlerStack = null;
+
     public function __construct()
     {
         if (!self::$handlerStack) {
@@ -17,6 +20,7 @@ abstract class HandlerAbstract implements HandlerInterface
     }
 
     abstract protected function buildConstraints(): Constraint;
+
     abstract protected function validate(DataWrapperInterface $data): ValidationResult;
 
     public function setNext(HandlerInterface $handler): HandlerInterface

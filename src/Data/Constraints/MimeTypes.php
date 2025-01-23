@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Data\Constraints;
 
 use Ipedis\ValidationHandler\Data\Constraints\Mimes\BuiltInMimeTypesInterface;
-use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
 use Ipedis\ValidationHandler\Validator\BindValidator;
+use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
 
 #[BindValidator(validatorClass: MimeTypeValidator::class)]
 class MimeTypes implements ConstraintInterface
@@ -16,6 +18,7 @@ class MimeTypes implements ConstraintInterface
 
     /**
      * @param string|BuiltInMimeTypesInterface $mimes FQCN or object
+     *
      * @return static
      */
     public static function with(string|BuiltInMimeTypesInterface $mimes): self
@@ -26,12 +29,9 @@ class MimeTypes implements ConstraintInterface
 
         return ($mimes instanceof BuiltInMimeTypesInterface) ?
             new self($mimes->getSupportedMimeTypes()) :
-            new self((new $mimes)->getSupportedMimeTypes());
+            new self((new $mimes())->getSupportedMimeTypes());
     }
 
-    /**
-     * @return void
-     */
     private function assertInput(): void
     {
         $pattern = '/^[-\w.]+\/[-\w.+]+$/';

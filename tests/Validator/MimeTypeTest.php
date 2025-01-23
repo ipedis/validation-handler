@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use Ipedis\ValidationHandler\Data\Constraints\Mimes\PdfMimeType;
+use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Data\DataWrapper;
 use Ipedis\ValidationHandler\Validator\MimeTypeValidator;
-use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 
-
-it ('should fail validation for invalid mimetype', function() {
-    $file = new SplFileInfo(getDataDirectory().'malicious_php.pdf');
+it('should fail validation for invalid mimetype', function () {
+    $file = new SplFileInfo(getDataDirectory() . 'malicious_php.pdf');
     $validator = new MimeTypeValidator(
         new MimeTypes(['application/pdf'])
     );
@@ -17,8 +18,8 @@ it ('should fail validation for invalid mimetype', function() {
     $this->assertTrue($result->isFailed());
 });
 
-it ('should pass validation for valid mimetype', function() {
-    $file = new SplFileInfo(getDataDirectory().'test.txt');
+it('should pass validation for valid mimetype', function () {
+    $file = new SplFileInfo(getDataDirectory() . 'test.txt');
     $validator = new MimeTypeValidator(
         new MimeTypes(['text/plain'])
     );
@@ -28,13 +29,13 @@ it ('should pass validation for valid mimetype', function() {
     $this->assertFalse($result->isFailed());
 });
 
-it ('should build mimetype list when used helper', function() {
+it('should build mimetype list when used helper', function () {
     $pdf = new PdfMimeType();
     $pdfMime = MimeTypes::with($pdf);
 
     $this->assertEquals($pdfMime->mimeTypes, $pdf->getSupportedMimeTypes());
 
-    $file = new SplFileInfo(getDataDirectory().'265kb.pdf');
+    $file = new SplFileInfo(getDataDirectory() . '265kb.pdf');
     $validator = new MimeTypeValidator(
         $pdfMime
     );

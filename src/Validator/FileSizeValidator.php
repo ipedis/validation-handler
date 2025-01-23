@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Validator;
 
-use Ipedis\ValidationHandler\Data\DataWrapperInterface;
 use Ipedis\ValidationHandler\Data\Constraints\FileSize;
+use Ipedis\ValidationHandler\Data\DataWrapperInterface;
 use Ipedis\ValidationHandler\Handler\HandlerAbstract;
 use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 final class FileSizeValidator extends HandlerAbstract
 {
@@ -43,7 +45,7 @@ final class FileSizeValidator extends HandlerAbstract
     protected function buildConstraints(): Constraint
     {
         return new Assert\File([
-            'maxSize' => (string)$this->fileSize
+            'maxSize' => (string) $this->fileSize,
         ]);
     }
 }

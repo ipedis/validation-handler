@@ -62,7 +62,7 @@ var_dump(ValidationHelper::isImage($data));
 var_dump(ValidationHelper::isPdf($data));
 ```
 
-Result will be instance of [ValidationResult](src/Validator/Modal/ValidationResult.php), `isFailed()` is helper to know 
+Result will be instanced of [ValidationResult](src/Validator/Modal/ValidationResult.php), `isFailed()` is helper to know 
 if validation failed or not. `getError()` will give you instance of symfony's [ConstraintViolationInterface](https://github.com/symfony/validator/blob/6.1/ConstraintViolationInterface.php).
 
 #### Adding more validator

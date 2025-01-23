@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Data;
 
 abstract class DataWrapperAbstract implements DataWrapperInterface

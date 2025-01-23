@@ -4,13 +4,13 @@
   "type": "library",
   "require": {
     "php": "^8.2",
-    "symfony/validator": "6.4.*",
-    "symfony/mime": "6.4.*"
+    "symfony/validator": "7.2.*",
+    "symfony/mime": "7.2.*"
   },
   "autoload": {
     "psr-4": {
       "Ipedis\\ValidationHandler\\": "src/",
-      "Ipedis\\ValidationHandler\\Test\\": "test/",
+      "Ipedis\\ValidationHandler\\Test\\": "tests/",
       "Ipedis\\ValidationHandler\\Demo\\": "demo/"
     }
   },
@@ -22,8 +22,10 @@
   ],
   "minimum-stability": "stable",
   "require-dev": {
-    "pestphp/pest": "^1.21",
-    "symfony/var-dumper": "6.4.*"
+    "pestphp/pest": "^3.7",
+    "symfony/var-dumper": "7.2.*",
+    "laravel/pint": "^1.20",
+    "phpstan/phpstan": "^2.1"
   },
   "config": {
     "allow-plugins": {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ipedis\ValidationHandler\Data\Constraints\Mimes;
 
 final class ImageMimeType implements BuiltInMimeTypesInterface
@@ -21,7 +23,7 @@ final class ImageMimeType implements BuiltInMimeTypesInterface
             self::JPEG,
             self::PNG,
             self::SVG,
-            self::WEBP
+            self::WEBP,
         ];
     }
 }
