@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInt
 
 final class MimeTypeValidator extends HandlerAbstract
 {
-    private BaseValidatorInterface $validator;
+    private readonly BaseValidatorInterface $validator;
 
     public function __construct(private readonly MimeTypes $mimeTypes)
     {
@@ -25,9 +25,7 @@ final class MimeTypeValidator extends HandlerAbstract
 
     protected function buildConstraints(): Constraint
     {
-        return new Assert\File([
-            'mimeTypes' => $this->mimeTypes->mimeTypes,
-        ]);
+        return new Assert\File(mimeTypes: $this->mimeTypes->mimeTypes);
     }
 
     public function handle(DataWrapperInterface $data): ValidationResult

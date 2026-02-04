@@ -37,7 +37,7 @@ class MimeTypes implements ConstraintInterface
         $pattern = '/^[-\w.]+\/[-\w.+]+$/';
 
         foreach ($this->mimeTypes as $mimeType) {
-            if (1 !== preg_match($pattern, $mimeType)) {
+            if (1 !== preg_match($pattern, (string) $mimeType)) {
                 throw new \InvalidArgumentException("{$mimeType} is not a valid mime type.");
             }
         }

@@ -19,6 +19,6 @@ class DataWrapper extends DataWrapperAbstract
 
     public function getType(): string
     {
-        return get_class($this->getData());
+        return $this->getData()::class;
     }
 }

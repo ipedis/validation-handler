@@ -3,9 +3,9 @@
   "description": "File validation handler",
   "type": "library",
   "require": {
-    "php": "^8.2",
-    "symfony/validator": "7.2.*",
-    "symfony/mime": "7.2.*"
+    "php": ">=8.2",
+    "symfony/validator": "7.4.*",
+    "symfony/mime": "7.4.*"
   },
   "autoload": {
     "psr-4": {
@@ -22,10 +22,11 @@
   ],
   "minimum-stability": "stable",
   "require-dev": {
-    "pestphp/pest": "^3.7",
-    "symfony/var-dumper": "7.2.*",
+    "pestphp/pest": "^3.8",
+    "symfony/var-dumper": "7.4.*",
     "laravel/pint": "^1.20",
-    "phpstan/phpstan": "^2.1"
+    "phpstan/phpstan": "^2.1",
+    "rector/rector": "^2.3"
   },
   "config": {
     "allow-plugins": {

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInt
 
 final class FileSizeValidator extends HandlerAbstract
 {
-    private BaseValidatorInterface $validator;
+    private readonly BaseValidatorInterface $validator;
 
     public function __construct(private readonly FileSize $fileSize)
     {
@@ -44,8 +44,6 @@ final class FileSizeValidator extends HandlerAbstract
 
     protected function buildConstraints(): Constraint
     {
-        return new Assert\File([
-            'maxSize' => (string) $this->fileSize,
-        ]);
+        return new Assert\File(maxSize: (string) $this->fileSize);
     }
 }
