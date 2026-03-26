@@ -40,6 +40,7 @@ class ValidationHelper
         $mimeTypes = match ($validationType) {
             BuiltInMimeTypesInterface::TYPE_IMAGE => MimeTypes::with(ImageMimeType::class),
             BuiltInMimeTypesInterface::TYPE_PDF => MimeTypes::with(PdfMimeType::class),
+            default => throw new \InvalidArgumentException(sprintf('Unsupported validation type: %s', $validationType)),
         };
 
         $validator = ConstraintFactory::build(constraints: [

@@ -1,36 +1,51 @@
 {
-  "name": "ipedis/validation-handler",
-  "description": "File validation handler",
-  "type": "library",
-  "require": {
-    "php": ">=8.2",
-    "symfony/validator": "7.4.*",
-    "symfony/mime": "7.4.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Ipedis\\ValidationHandler\\": "src/",
-      "Ipedis\\ValidationHandler\\Test\\": "tests/",
-      "Ipedis\\ValidationHandler\\Demo\\": "demo/"
+    "name": "ipedis/validation-handler",
+    "description": "File validation handler",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Tejas",
+            "email": "tejas@ipedis.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.2",
+        "symfony/validator": "7.4.*",
+        "symfony/mime": "7.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ipedis\\ValidationHandler\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ipedis\\ValidationHandler\\Test\\": "tests/",
+            "Ipedis\\ValidationHandler\\Demo\\": "demo/"
+        }
+    },
+    "require-dev": {
+        "rector/rector": "^2.3",
+        "phpunit/phpunit": "^11.5",
+        "phpstan/phpstan": "^2.1",
+        "laravel/pint": "^1.20",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "symfony/var-dumper": "7.4.*"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html coverage",
+        "phpstan": "phpstan analyse --memory-limit 2024M",
+        "pint": "pint",
+        "pint:check": "pint --test",
+        "rector": "rector process",
+        "rector:check": "rector process --dry-run",
+        "qa": [
+            "@rector",
+            "@pint",
+            "@phpstan",
+            "@test"
+        ]
     }
-  },
-  "authors": [
-    {
-      "name": "Tejas",
-      "email": "tejas@ipedis.com"
-    }
-  ],
-  "minimum-stability": "stable",
-  "require-dev": {
-    "pestphp/pest": "^3.8",
-    "symfony/var-dumper": "7.4.*",
-    "laravel/pint": "^1.20",
-    "phpstan/phpstan": "^2.1",
-    "rector/rector": "^2.3"
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  }
 }

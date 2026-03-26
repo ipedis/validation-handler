@@ -15,13 +15,13 @@ readonly class ValidationResult
 
     public function isFailed(): bool
     {
-        return $this->violations && $this->violations->count() > 0;
+        return $this->violations instanceof ConstraintViolationListInterface && $this->violations->count() > 0;
     }
 
     public function getErrorMessage(): ?string
     {
-        if ($this->isFailed()) {
-            return $this->violations->get(0)->getMessage();
+        if ($this->violations instanceof ConstraintViolationListInterface && $this->isFailed()) {
+            return (string) $this->violations->get(0)->getMessage();
         }
 
         return null;
@@ -29,7 +29,7 @@ readonly class ValidationResult
 
     public function getError(): ?ConstraintViolationInterface
     {
-        if ($this->isFailed()) {
+        if ($this->violations instanceof ConstraintViolationListInterface && $this->isFailed()) {
             return $this->violations->get(0);
         }
 

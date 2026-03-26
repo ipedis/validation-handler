@@ -8,6 +8,7 @@ final class PdfMimeType implements BuiltInMimeTypesInterface
 {
     private const PDF = 'application/pdf';
 
+    /** @return string[] */
     public function getSupportedMimeTypes(): array
     {
         return [

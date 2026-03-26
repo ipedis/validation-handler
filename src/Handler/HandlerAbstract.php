@@ -10,11 +10,11 @@ use Symfony\Component\Validator\Constraint;
 
 abstract class HandlerAbstract implements HandlerInterface
 {
-    protected static ?HandlerStack $handlerStack = null;
+    protected static HandlerStack $handlerStack;
 
     public function __construct()
     {
-        if (!self::$handlerStack) {
+        if (!isset(self::$handlerStack)) {
             self::$handlerStack = new HandlerStack();
         }
     }
@@ -34,7 +34,7 @@ abstract class HandlerAbstract implements HandlerInterface
     {
         $nextHandler = self::$handlerStack->fetch();
 
-        if ($nextHandler) {
+        if ($nextHandler instanceof HandlerInterface) {
             return $nextHandler->handle($data);
         }
 

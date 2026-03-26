@@ -6,6 +6,7 @@ namespace Ipedis\ValidationHandler\Handler;
 
 class HandlerStack
 {
+    /** @var HandlerInterface[] */
     private array $stack = [];
 
     public function push(HandlerInterface $handler): void
@@ -15,9 +16,10 @@ class HandlerStack
 
     public function fetch(): ?HandlerInterface
     {
-        if (empty($this->stack)) {
+        if ($this->stack === []) {
             return null;
         }
+
         $index = array_key_first($this->stack);
         $handler = $this->stack[$index];
         unset($this->stack[$index]);

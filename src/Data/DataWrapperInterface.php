@@ -10,7 +10,7 @@ interface DataWrapperInterface
         \SplFileInfo::class,
     ];
 
-    public function getData();
+    public function getData(): \SplFileInfo;
 
     public function getType(): string;
 }

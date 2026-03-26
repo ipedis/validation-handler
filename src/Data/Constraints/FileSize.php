@@ -10,6 +10,7 @@ use Ipedis\ValidationHandler\Validator\FileSizeValidator;
 #[BindValidator(validatorClass: FileSizeValidator::class)]
 class FileSize implements \Stringable, ConstraintInterface
 {
+    /** @var string[] */
     public const ALLOWED_UNITS = ['k', 'M', 'Ki', 'Mi'];
 
     /**
@@ -29,7 +30,7 @@ class FileSize implements \Stringable, ConstraintInterface
             throw new \InvalidArgumentException('Value size must be positive integer.');
         }
 
-        if (null !== $this->unit && !in_array($this->unit, self::ALLOWED_UNITS)) {
+        if (null !== $this->unit && !in_array($this->unit, self::ALLOWED_UNITS, true)) {
             throw new \InvalidArgumentException(sprintf('Invalid unit provided. It must be one from [%s]', implode(' ', self::ALLOWED_UNITS)));
         }
     }

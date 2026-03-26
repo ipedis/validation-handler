@@ -2,58 +2,91 @@
 
 declare(strict_types=1);
 
+namespace Ipedis\ValidationHandler\Test\Validator;
+
 use Ipedis\ValidationHandler\ConstraintFactory;
 use Ipedis\ValidationHandler\Data\Constraints\ConstraintInterface;
 use Ipedis\ValidationHandler\Data\Constraints\FileSize;
 use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Data\DataWrapper;
+use PHPUnit\Framework\TestCase;
+use SplFileInfo;
+use PHPUnit\Framework\Attributes\Test;
 
-it('should pass all validations for valid data', function () {
-    $filePath = getDataDirectory() . '265kb.pdf';
-    $data = new DataWrapper(new SplFileInfo($filePath));
+final class ChainHandlerTest extends TestCase
+{
+    /**
+     */
+    #[Test]
+    public function it_should_pass_all_validations_for_valid_data(): void
+    {
+        $filePath = getDataDirectory() . '265kb.pdf';
+        $dataWrapper = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator = ConstraintFactory::build([
-        new FileSize(1, 'M'),
-        new MimeTypes(['application/pdf']),
-    ]);
+        $validator = ConstraintFactory::build([
+            new FileSize(1, 'M'),
+            new MimeTypes(['application/pdf']),
+        ]);
 
-    $result = $validator->handle($data);
+        $result = $validator->handle($dataWrapper);
 
-    $this->assertFalse($result->isFailed());
-});
+        $this->assertFalse($result->isFailed());
+    }
 
-it('should fail validation if any validator fails', function () {
-    $filePath = getDataDirectory() . '265kb.pdf';
-    $data = new DataWrapper(new SplFileInfo($filePath));
+    /**
+     */
+    #[Test]
+    public function it_should_fail_validation_if_any_validator_fails(): void
+    {
+        $filePath = getDataDirectory() . '265kb.pdf';
+        $dataWrapper = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator = ConstraintFactory::build([
-        new FileSize(100, 'k'),
-        new MimeTypes(['application/pdf']),
-    ]);
+        $validator = ConstraintFactory::build([
+            new FileSize(100, 'k'),
+            new MimeTypes(['application/pdf']),
+        ]);
 
-    $result = $validator->handle($data);
+        $result = $validator->handle($dataWrapper);
 
-    $this->assertTrue($result->isFailed());
-});
+        $this->assertTrue($result->isFailed());
+    }
 
-it('should fail validation if any validator fails part 2', function () {
-    $filePath = getDataDirectory() . 'malicious_php.pdf';
-    $data = new DataWrapper(new SplFileInfo($filePath));
+    /**
+     */
+    #[Test]
+    public function it_should_fail_validation_if_any_validator_fails_part_2(): void
+    {
+        $filePath = getDataDirectory() . 'malicious_php.pdf';
+        $dataWrapper = new DataWrapper(new SplFileInfo($filePath));
 
-    $validator = ConstraintFactory::build([
-        new FileSize(1, 'M'),
-        new MimeTypes(['application/pdf']),
-    ]);
+        $validator = ConstraintFactory::build([
+            new FileSize(1, 'M'),
+            new MimeTypes(['application/pdf']),
+        ]);
 
-    $result = $validator->handle($data);
+        $result = $validator->handle($dataWrapper);
 
-    $this->assertTrue($result->isFailed());
-});
+        $this->assertTrue($result->isFailed());
+    }
 
-it('should throw exception when constraint is not an instance of ConstraintInterface',
-    fn () => ConstraintFactory::build([new stdClass()])
-)->throws(InvalidArgumentException::class);
+    /**
+     */
+    #[Test]
+    public function it_should_throw_exception_when_constraint_is_not_an_instance_of_constraint_interface(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
 
-it('should throw exception when constraint do not have BindValidator attribute',
-    fn () => ConstraintFactory::build([new class implements ConstraintInterface {}])
-)->throws(LogicException::class);
+        /** @phpstan-ignore argument.type */
+        ConstraintFactory::build([new \stdClass()]);
+    }
+
+    /**
+     */
+    #[Test]
+    public function it_should_throw_exception_when_constraint_do_not_have_bind_validator_attribute(): void
+    {
+        $this->expectException(\LogicException::class);
+
+        ConstraintFactory::build([new class () implements ConstraintInterface {}]);
+    }
+}
