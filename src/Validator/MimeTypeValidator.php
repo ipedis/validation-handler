@@ -19,7 +19,6 @@ final class MimeTypeValidator extends HandlerAbstract
     public function __construct(private readonly MimeTypes $mimeTypes)
     {
         $this->validator = Validation::createValidator();
-        parent::__construct();
     }
 
     protected function buildConstraints(): File

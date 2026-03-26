@@ -19,7 +19,6 @@ final class FileSizeValidator extends HandlerAbstract
     public function __construct(private readonly FileSize $fileSize)
     {
         $this->validator = Validation::createValidator();
-        parent::__construct();
     }
 
     public function handle(DataWrapperInterface $data): ValidationResult

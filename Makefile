@@ -1,4 +1,4 @@
-DC := docker compose exec app
+DC := docker compose exec -T app
 
 .PHONY: up down install update test coverage phpstan pint pint-check rector rector-check qa shell
 

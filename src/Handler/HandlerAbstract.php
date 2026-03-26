@@ -10,14 +10,7 @@ use Symfony\Component\Validator\Constraint;
 
 abstract class HandlerAbstract implements HandlerInterface
 {
-    protected static HandlerStack $handlerStack;
-
-    public function __construct()
-    {
-        if (!isset(self::$handlerStack)) {
-            self::$handlerStack = new HandlerStack();
-        }
-    }
+    private ?HandlerInterface $nextHandler = null;
 
     abstract protected function buildConstraints(): Constraint;
 
@@ -25,17 +18,19 @@ abstract class HandlerAbstract implements HandlerInterface
 
     public function setNext(HandlerInterface $handler): HandlerInterface
     {
-        self::$handlerStack->push($handler);
+        if ($this->nextHandler instanceof HandlerInterface) {
+            $this->nextHandler->setNext($handler);
+        } else {
+            $this->nextHandler = $handler;
+        }
 
         return $this;
     }
 
     public function handle(DataWrapperInterface $data): ValidationResult
     {
-        $nextHandler = self::$handlerStack->fetch();
-
-        if ($nextHandler instanceof HandlerInterface) {
-            return $nextHandler->handle($data);
+        if ($this->nextHandler instanceof HandlerInterface) {
+            return $this->nextHandler->handle($data);
         }
 
         // if it comes here, it means all validators have passed.

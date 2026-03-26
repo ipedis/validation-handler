@@ -89,4 +89,12 @@ final class ChainHandlerTest extends TestCase
 
         ConstraintFactory::build([new class () implements ConstraintInterface {}]);
     }
+
+    #[Test]
+    public function it_should_throw_exception_when_no_constraints_are_provided(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        ConstraintFactory::build([]);
+    }
 }
