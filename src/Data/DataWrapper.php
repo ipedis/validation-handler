@@ -6,13 +6,7 @@ namespace Ipedis\ValidationHandler\Data;
 
 class DataWrapper extends DataWrapperAbstract
 {
-    public function __construct($data)
-    {
-        $this->data = $data;
-        parent::__construct($data);
-    }
-
-    public function getData()
+    public function getData(): \SplFileInfo
     {
         return $this->data;
     }

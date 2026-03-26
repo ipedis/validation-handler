@@ -8,10 +8,9 @@ use Ipedis\ValidationHandler\Data\Constraints\MimeTypes;
 use Ipedis\ValidationHandler\Data\DataWrapperInterface;
 use Ipedis\ValidationHandler\Handler\HandlerAbstract;
 use Ipedis\ValidationHandler\Validator\Result\ValidationResult;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface as BaseValidatorInterface;
+use Symfony\Component\Validator\Constraints\File;
 
 final class MimeTypeValidator extends HandlerAbstract
 {
@@ -20,12 +19,11 @@ final class MimeTypeValidator extends HandlerAbstract
     public function __construct(private readonly MimeTypes $mimeTypes)
     {
         $this->validator = Validation::createValidator();
-        parent::__construct();
     }
 
-    protected function buildConstraints(): Constraint
+    protected function buildConstraints(): File
     {
-        return new Assert\File(mimeTypes: $this->mimeTypes->mimeTypes);
+        return new File(mimeTypes: $this->mimeTypes->mimeTypes);
     }
 
     public function handle(DataWrapperInterface $data): ValidationResult
@@ -41,9 +39,11 @@ final class MimeTypeValidator extends HandlerAbstract
 
     protected function validate(DataWrapperInterface $data): ValidationResult
     {
-        return new ValidationResult($this->validator->validate(
-            $data->getData(),
-            $this->buildConstraints())
+        return new ValidationResult(
+            $this->validator->validate(
+                $data->getData(),
+                $this->buildConstraints()
+            )
         );
     }
 }

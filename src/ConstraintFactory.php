@@ -33,25 +33,32 @@ class ConstraintFactory
     {
         $validatorHandler = null;
         foreach ($constraints as $constraint) {
-            if (!$constraint instanceof ConstraintInterface) {
+            if (!$constraint instanceof ConstraintInterface) { // @phpstan-ignore instanceof.alwaysTrue
                 throw new \InvalidArgumentException('Constraint must be instance of ConstraintInterface');
             }
+
             $reflection = new \ReflectionClass($constraint);
             $attributes = $reflection->getAttributes(BindValidator::class);
 
-            if (empty($attributes)) {
+            if ($attributes === []) {
                 throw new \LogicException('Constraint must have BindValidator attribute');
             }
 
             foreach ($attributes as $attribute) {
                 $validatorClass = $attribute->newInstance()->validatorClass;
-                if (null === $validatorHandler) {
-                    /** @var HandlerInterface $validator */
-                    $validatorHandler = new $validatorClass($constraint);
+                /** @var HandlerInterface $handler */
+                $handler = new $validatorClass($constraint);
+                if (!$validatorHandler instanceof HandlerInterface) {
+                    $validatorHandler = $handler;
                     continue;
                 }
-                $validatorHandler->setNext(new $validatorClass($constraint));
+
+                $validatorHandler->setNext($handler);
             }
+        }
+
+        if (!$validatorHandler instanceof HandlerInterface) {
+            throw new \InvalidArgumentException('At least one constraint is required');
         }
 
         return $validatorHandler;
