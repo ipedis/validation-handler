@@ -2,6 +2,7 @@
     "name": "ipedis/validation-handler",
     "description": "File validation handler",
     "type": "library",
+    "license": "CC-BY-1.0",
     "authors": [
         {
             "name": "Tejas",
