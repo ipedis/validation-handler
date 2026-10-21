@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "symfony/validator": "7.4.*",
         "symfony/mime": "7.4.*"
     },

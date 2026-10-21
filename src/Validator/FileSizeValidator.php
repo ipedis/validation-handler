@@ -21,6 +21,7 @@ final class FileSizeValidator extends HandlerAbstract
         $this->validator = Validation::createValidator();
     }
 
+    #[\Override]
     public function handle(DataWrapperInterface $data): ValidationResult
     {
         $validationResult = $this->validate($data);
