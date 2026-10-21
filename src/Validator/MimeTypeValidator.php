@@ -26,6 +26,7 @@ final class MimeTypeValidator extends HandlerAbstract
         return new File(mimeTypes: $this->mimeTypes->mimeTypes);
     }
 
+    #[\Override]
     public function handle(DataWrapperInterface $data): ValidationResult
     {
         $validationResult = $this->validate($data);

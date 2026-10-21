@@ -6,7 +6,7 @@ namespace Ipedis\ValidationHandler\Data\Constraints\Mimes;
 
 final class PdfMimeType implements BuiltInMimeTypesInterface
 {
-    private const PDF = 'application/pdf';
+    private const string PDF = 'application/pdf';
 
     /** @return string[] */
     public function getSupportedMimeTypes(): array
